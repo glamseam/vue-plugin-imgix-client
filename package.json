@@ -1,0 +1,43 @@
+{
+    "name": "@d-gs/vue-plugin-imgix-client",
+    "version": "0.0.1",
+    "description": "",
+    "main": "./dist/index.js",
+    "files": [
+        "dist"
+    ],
+    "author": "__d",
+    "license": "MIT",
+    "keywords": [
+        "imgix",
+        "vue"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/glamseam/vue-plugin-imgix-client.git"
+    },
+    "bugs": {
+        "url": "https://github.com/glamseam/vue-plugin-imgix-client/issues"
+    },
+    "scripts": {
+        "build": "vue-tsc --noEmit && node tools/pretsc && tsc",
+        "pub": "pnpm build && pnpm publish --access=public",
+        "vtsc": "vue-tsc --noEmit",
+        "lint": "eslint src -c .eslintrc.json --ext ts,vue",
+        "lint:fix": "eslint --fix src -c .eslintrc.json --ext ts,vue"
+    },
+    "peerDependencies": {
+        "vue": "^3.2.0"
+    },
+    "dependencies": {
+        "@imgix/js-core": "^3.6.0"
+    },
+    "devDependencies": {
+        "@d-gs/eslint-config": "^0.1.12",
+        "@d-gs/eslint-config-for-vue": "^0.4.0",
+        "fs-extra": "^10.1.0",
+        "typescript": "^4.7.4",
+        "vue": "^3.2.37",
+        "vue-tsc": "^0.39.5"
+    }
+}
