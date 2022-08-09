@@ -1,9 +1,5 @@
 {
     "compilerOptions": {
-        "declaration": true,
-        "module": "esnext",
-        "outDir": "dist",
-        "rootDir": "src",
         "allowJs": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,

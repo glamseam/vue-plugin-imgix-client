@@ -1,5 +1,5 @@
-const fs = require('fs-extra')
-const path = require('path')
+import fs from 'fs-extra'
+import path from 'path'
 
 const filterSFC = (src) => {
     if (!path.extname(src)) {
@@ -10,7 +10,7 @@ const filterSFC = (src) => {
 }
 
 const copySrc = () => {
-    fs.copy('src', 'dist', { filter: filterSFC })
+    fs.copy('src/components', 'dist/components', { filter: filterSFC })
         .then(() => {
             console.log('Finished copy')
         })
@@ -20,14 +20,7 @@ const copySrc = () => {
 }
 
 const main = () => {
-    fs.remove('dist')
-        .then(() => {
-            console.log('Removed')
-            copySrc()
-        })
-        .catch((error) => {
-            throw new Error(error)
-        })
+    copySrc()
 }
 
 main()
