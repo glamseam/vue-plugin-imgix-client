@@ -5,12 +5,12 @@
 <script lang="ts" setup>
 import { computed, h } from 'vue'
 
-import { useImgix } from '../composables'
-import type {
-    AttributeConfig,
-    ImgixParams,
-    SrcSetOptions
-} from '../types'
+import {
+    useImgix,
+    type AttributeConfig,
+    type ImgixParams,
+    type SrcSetOptions
+} from '../index'
 
 const props = withDefaults(defineProps<{
     arWithCrop?: {
@@ -25,10 +25,12 @@ const props = withDefaults(defineProps<{
     width?: number
     height?: number
     imgixParams?: ImgixParams
+    isPathEncoding?: boolean
     srcSetOptions?: SrcSetOptions
 }>(), {
     outputSrcSet: true,
-    tag: 'img'
+    tag: 'img',
+    isPathEncoding: false
 })
 
 const {
@@ -73,7 +75,8 @@ const srcSrcSetAttrs = computed(() => {
     const { src, srcset } = buildUrlObject(
         props.src,
         mergedImgixParams(),
-        props.srcSetOptions
+        props.srcSetOptions,
+        props.isPathEncoding
     )
 
     if (props.tag === 'source') {

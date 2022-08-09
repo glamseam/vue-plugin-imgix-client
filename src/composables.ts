@@ -1,28 +1,19 @@
-import ImgixClient from '@imgix/js-core'
+import {
+    buildUrlObject as clientBuildUrlObject,
+    type ImgixParams,
+    type SrcSetOptions
+} from '@d-gs/imgix-client'
 import { inject } from 'vue'
 
 import type {
     AttributeConfig,
-    ImgixParams,
-    PluginImgix,
-    SrcSetOptions
-} from '../types'
-
-const initImgixParams: ImgixParams = {
-    auto: 'format'
-}
-
-const initSrcSetOptions: SrcSetOptions = {
-    widthTolerance: 0.16,
-    maxWidth: 1920,
-    devicePixelRatios: [ 1, 1.5, 2, 2.5, 3],
-    disableVariableQuality: true
-}
+    PluginImgix
+} from './types'
 
 export const useImgix = () => {
-    const options = inject<PluginImgix>('$pluginVueImgix')
+    const initOptions = inject<PluginImgix>('$pluginVueImgix')
 
-    if (!options) {
+    if (!initOptions) {
         throw new Error(`$pluginVueImgix is not provided`)
     }
 
@@ -31,10 +22,9 @@ export const useImgix = () => {
         defaultImgClass,
         defaultImgixParams,
         defaultSrcSetOptions,
-        ...clientOptions
-    } = options
-
-    const client = new ImgixClient(clientOptions)
+        url
+        // secureUrlToken
+    } = initOptions
 
     const margeAttributeConfig = (config: AttributeConfig | undefined): AttributeConfig => {
         return {
@@ -45,7 +35,7 @@ export const useImgix = () => {
 
     const margeImgixParams = (params: ImgixParams | undefined): ImgixParams | undefined => {
         return {
-            ...initImgixParams,
+            auto: 'format',
             ...defaultImgixParams,
             ...params
         }
@@ -53,7 +43,6 @@ export const useImgix = () => {
 
     const margeSrcSetOptions = (srcSetOptions: SrcSetOptions | undefined): SrcSetOptions => {
         return {
-            ...initSrcSetOptions,
             ...defaultSrcSetOptions,
             ...srcSetOptions
         }
@@ -62,14 +51,15 @@ export const useImgix = () => {
     const buildUrlObject = (
         path: string,
         imgixParams?: ImgixParams,
-        options?: SrcSetOptions
+        srcsetOptions?: SrcSetOptions,
+        isPathEncoding?: boolean
     ) => {
-        const src = client.buildURL(path, margeImgixParams(imgixParams))
-
-        const srcset = client.buildSrcSet(
+        const { src, srcset } = clientBuildUrlObject(
+            url,
             path,
-            margeImgixParams(imgixParams),
-            margeSrcSetOptions(options)
+            imgixParams,
+            srcsetOptions,
+            isPathEncoding
         )
 
         return {
@@ -79,7 +69,6 @@ export const useImgix = () => {
     }
 
     return {
-        client,
         defaultAttributeConfig,
         defaultImgClass,
         defaultImgixParams,
