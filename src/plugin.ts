@@ -10,7 +10,7 @@ export const pluginImgix: Plugin = {
             defaultAttributeConfig = { src: 'src', srcset: 'srcset', sizes: 'sizes' },
             defaultImgClass,
             defaultImgixParams,
-            defaultSrcSetOptions,
+            defaultSrcsetOptions,
             secureUrlToken
         }: PluginInstallOptions = {}
     ) => {
@@ -19,7 +19,7 @@ export const pluginImgix: Plugin = {
             defaultAttributeConfig,
             defaultImgClass,
             defaultImgixParams,
-            defaultSrcSetOptions,
+            defaultSrcsetOptions,
             secureUrlToken
         })
     }

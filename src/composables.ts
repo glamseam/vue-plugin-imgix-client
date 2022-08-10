@@ -1,7 +1,7 @@
 import {
     buildUrlObject as clientBuildUrlObject,
     type ImgixParams,
-    type SrcSetOptions
+    type SrcsetOptions
 } from '@d-gs/imgix-client'
 import { inject } from 'vue'
 
@@ -21,7 +21,7 @@ export const useImgix = () => {
         defaultAttributeConfig,
         defaultImgClass,
         defaultImgixParams,
-        defaultSrcSetOptions,
+        defaultSrcsetOptions,
         url
         // secureUrlToken
     } = initOptions
@@ -41,24 +41,24 @@ export const useImgix = () => {
         }
     }
 
-    const margeSrcSetOptions = (srcSetOptions: SrcSetOptions | undefined): SrcSetOptions => {
+    const margeSrcsetOptions = (srcsetOptions: SrcsetOptions | undefined): SrcsetOptions => {
         return {
-            ...defaultSrcSetOptions,
-            ...srcSetOptions
+            ...defaultSrcsetOptions,
+            ...srcsetOptions
         }
     }
 
     const buildUrlObject = (
         path: string,
         imgixParams?: ImgixParams,
-        srcsetOptions?: SrcSetOptions,
+        srcsetOptions?: SrcsetOptions,
         isPathEncoding?: boolean
     ) => {
         const { src, srcset } = clientBuildUrlObject(
             url,
             path,
             margeImgixParams(imgixParams),
-            margeSrcSetOptions(srcsetOptions),
+            margeSrcsetOptions(srcsetOptions),
             isPathEncoding
         )
 
@@ -72,10 +72,10 @@ export const useImgix = () => {
         defaultAttributeConfig,
         defaultImgClass,
         defaultImgixParams,
-        defaultSrcSetOptions,
+        defaultSrcsetOptions,
         buildUrlObject,
         margeAttributeConfig,
         margeImgixParams,
-        margeSrcSetOptions
+        margeSrcsetOptions
     }
 }

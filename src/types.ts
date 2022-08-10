@@ -1,10 +1,10 @@
 import type {
     ImgixParams as _ImgixParams,
-    SrcSetOptions as _SrcSetOptions
+    SrcsetOptions as _SrcsetOptions
 } from '@d-gs/imgix-client'
 
 export type ImgixParams = _ImgixParams
-export type SrcSetOptions = _SrcSetOptions
+export type SrcsetOptions = _SrcsetOptions
 
 export interface AttributeConfig {
     src: string
@@ -16,7 +16,7 @@ export interface PluginOptions {
     defaultAttributeConfig: AttributeConfig
     defaultImgClass?: string
     defaultImgixParams?: ImgixParams
-    defaultSrcSetOptions?: SrcSetOptions
+    defaultSrcsetOptions?: SrcsetOptions
     secureUrlToken?: string
 }
 

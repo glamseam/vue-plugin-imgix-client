@@ -9,7 +9,7 @@ import {
     useImgix,
     type AttributeConfig,
     type ImgixParams,
-    type SrcSetOptions
+    type SrcsetOptions
 } from '../index'
 
 const props = withDefaults(defineProps<{
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<{
         vertical: number
     }
     attributeConfig?: AttributeConfig
-    outputSrcSet?: boolean
+    outputSrcset?: boolean
     sizes?: string
     src: string
     tag?: 'img' | 'source'
@@ -26,9 +26,9 @@ const props = withDefaults(defineProps<{
     height?: number
     imgixParams?: ImgixParams
     isPathEncoding?: boolean
-    srcSetOptions?: SrcSetOptions
+    srcsetOptions?: SrcsetOptions
 }>(), {
-    outputSrcSet: true,
+    outputSrcset: true,
     tag: 'img',
     isPathEncoding: false
 })
@@ -54,7 +54,7 @@ const widthHeightAttrs = computed(() => {
 })
 
 
-const srcSrcSetAttrs = computed(() => {
+const srcSrcsetAttrs = computed(() => {
     const mergedAttributeConfig = margeAttributeConfig(props.attributeConfig)
 
     const mergedImgixParams = () => {
@@ -75,7 +75,7 @@ const srcSrcSetAttrs = computed(() => {
     const { src, srcset } = buildUrlObject(
         props.src,
         mergedImgixParams(),
-        props.srcSetOptions,
+        props.srcsetOptions,
         props.isPathEncoding
     )
 
@@ -85,7 +85,7 @@ const srcSrcSetAttrs = computed(() => {
         }
     }
 
-    if (!props.outputSrcSet) {
+    if (!props.outputSrcset) {
         return {
             [mergedAttributeConfig.src]: src
         }
@@ -100,7 +100,7 @@ const srcSrcSetAttrs = computed(() => {
 const render = () => {
     return h(props.tag, {
         class: defaultImgClass,
-        ...srcSrcSetAttrs.value,
+        ...srcSrcsetAttrs.value,
         ...widthHeightAttrs.value,
         sizes: props.sizes
     })
