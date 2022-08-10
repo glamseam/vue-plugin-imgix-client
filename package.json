@@ -1,6 +1,6 @@
 {
     "name": "@d-gs/vue-plugin-imgix-client",
-    "version": "0.0.4",
+    "version": "0.0.6",
     "description": "",
     "type": "module",
     "main": "./dist/index.cjs",
@@ -41,7 +41,7 @@
         "vue": "^3.2.0"
     },
     "dependencies": {
-        "@d-gs/imgix-client": "^0.0.4"
+        "@d-gs/imgix-client": "^0.0.5"
     },
     "devDependencies": {
         "@d-gs/eslint-config": "^0.1.12",
