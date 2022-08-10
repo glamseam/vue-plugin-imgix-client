@@ -21,8 +21,8 @@ export const useImgix = () => {
         defaultAttributeConfig,
         defaultImgClass,
         defaultImgixParams,
-        defaultSrcsetOptions,
-        url
+        url: defaultImgixUrl,
+        defaultSrcsetOptions
         // secureUrlToken
     } = initOptions
 
@@ -49,13 +49,14 @@ export const useImgix = () => {
     }
 
     const buildUrlObject = (
+        imgixUrl: string,
         path: string,
         imgixParams?: ImgixParams,
         srcsetOptions?: SrcsetOptions,
         isPathEncoding?: boolean
     ) => {
         const { src, srcset } = clientBuildUrlObject(
-            url,
+            imgixUrl,
             path,
             margeImgixParams(imgixParams),
             margeSrcsetOptions(srcsetOptions),
@@ -72,6 +73,7 @@ export const useImgix = () => {
         defaultAttributeConfig,
         defaultImgClass,
         defaultImgixParams,
+        defaultImgixUrl,
         defaultSrcsetOptions,
         buildUrlObject,
         margeAttributeConfig,

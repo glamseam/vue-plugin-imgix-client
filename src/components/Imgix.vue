@@ -17,15 +17,18 @@ const props = withDefaults(defineProps<{
         horizontal: number
         vertical: number
     }
-    attributeConfig?: AttributeConfig
+    media?: string
     outputSrcset?: boolean
     sizes?: string
-    src: string
     tag?: 'img' | 'source'
     width?: number
     height?: number
+    // Imgix
+    attributeConfig?: AttributeConfig
+    imgixUrl?: string
     imgixParams?: ImgixParams
     isPathEncoding?: boolean
+    src: string
     srcsetOptions?: SrcsetOptions
 }>(), {
     outputSrcset: true,
@@ -35,6 +38,7 @@ const props = withDefaults(defineProps<{
 
 const {
     defaultImgClass,
+    defaultImgixUrl,
     buildUrlObject,
     margeAttributeConfig
 } = useImgix()
@@ -53,7 +57,6 @@ const widthHeightAttrs = computed(() => {
     }
 })
 
-
 const srcSrcsetAttrs = computed(() => {
     const mergedAttributeConfig = margeAttributeConfig(props.attributeConfig)
 
@@ -63,6 +66,7 @@ const srcSrcsetAttrs = computed(() => {
                 ar: `${props.arWithCrop.horizontal}:${props.arWithCrop.vertical}`,
                 fit: 'crop'
             }
+
             return {
                 ...props.imgixParams,
                 ...arWithCropParams
@@ -73,6 +77,7 @@ const srcSrcsetAttrs = computed(() => {
     }
 
     const { src, srcset } = buildUrlObject(
+        props.imgixUrl ?? defaultImgixUrl,
         props.src,
         mergedImgixParams(),
         props.srcsetOptions,
@@ -102,6 +107,7 @@ const render = () => {
         class: defaultImgClass,
         ...srcSrcsetAttrs.value,
         ...widthHeightAttrs.value,
+        media: props.media,
         sizes: props.sizes
     })
 }
