@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@d-gs/eslint-config': ^0.1.12
   '@d-gs/eslint-config-for-vue': ^0.4.0
-  '@d-gs/imgix-client': ^0.0.4
+  '@d-gs/imgix-client': ^0.0.5
   fs-extra: ^10.1.0
   typescript: ^4.7.4
   unbuild: ^0.7.6
@@ -11,7 +11,7 @@ specifiers:
   vue-tsc: ^0.39.5
 
 dependencies:
-  '@d-gs/imgix-client': 0.0.4
+  '@d-gs/imgix-client': 0.0.5
 
 devDependencies:
   '@d-gs/eslint-config': 0.1.12_qugx7qdu5zevzvxaiqyxfiwquq
@@ -254,8 +254,8 @@ packages:
       - typescript
     dev: true
 
-  /@d-gs/imgix-client/0.0.4:
-    resolution: {integrity: sha512-RJdCIiBuwTZdF1uapyqbwzxLTMl0xCEvwSHp7A9QHaqsn8I/wmICSV/i7g/kCpzTLclvGe2sZM54FBlxYIY/vQ==}
+  /@d-gs/imgix-client/0.0.5:
+    resolution: {integrity: sha512-XAeVd/q2GGt6M3oZ8CjsSaCQNfTNRR+e4DeNWOWN0Piv9kn3ZhnyMrY4Gk9M6mkv0R+K9CzHPlt6X7BGNnZM2w==}
     dependencies:
       js-base64: 3.7.2
       ufo: 0.8.5
