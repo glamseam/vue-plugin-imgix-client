@@ -35,7 +35,7 @@ export const useImgix = () => {
 
     const margeImgixParams = (params: ImgixParams | undefined): ImgixParams | undefined => {
         return {
-            auto: 'format',
+            auto: ['format'],
             ...defaultImgixParams,
             ...params
         }
@@ -57,8 +57,8 @@ export const useImgix = () => {
         const { src, srcset } = clientBuildUrlObject(
             url,
             path,
-            imgixParams,
-            srcsetOptions,
+            margeImgixParams(imgixParams),
+            margeSrcSetOptions(srcsetOptions),
             isPathEncoding
         )
 
