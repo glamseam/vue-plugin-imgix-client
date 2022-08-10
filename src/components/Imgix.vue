@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, h } from 'vue'
+import { computed, h, ref } from 'vue'
 
 import {
     useImgix,
@@ -43,6 +43,8 @@ const {
     margeAttributeConfig
 } = useImgix()
 
+const imgEl = ref<HTMLImageElement>()
+
 const widthHeightAttrs = computed(() => {
     if (props.arWithCrop) {
         return {
@@ -58,7 +60,10 @@ const widthHeightAttrs = computed(() => {
 })
 
 const srcSrcsetAttrs = computed(() => {
-    const mergedAttributeConfig = margeAttributeConfig(props.attributeConfig)
+    const attributeConfig =
+        imgEl.value  // for reactivity with custom attributes
+            ? { src: 'src', srcset: 'srcset', sizes: 'sizes' }
+            : margeAttributeConfig(props.attributeConfig)
 
     const mergedImgixParams = () => {
         if (props.arWithCrop) {
@@ -85,25 +90,22 @@ const srcSrcsetAttrs = computed(() => {
     )
 
     if (props.tag === 'source') {
-        return {
-            [mergedAttributeConfig.srcset]: srcset
-        }
+        return { [attributeConfig.srcset]: srcset }
     }
 
     if (!props.outputSrcset) {
-        return {
-            [mergedAttributeConfig.src]: src
-        }
+        return { [attributeConfig.src]: src }
     }
 
     return {
-        [mergedAttributeConfig.src]: src,
-        [mergedAttributeConfig.srcset]: srcset
+        [attributeConfig.src]: src,
+        [attributeConfig.srcset]: srcset
     }
 })
 
 const render = () => {
     return h(props.tag, {
+        ref: imgEl,
         class: defaultImgClass,
         ...srcSrcsetAttrs.value,
         ...widthHeightAttrs.value,
