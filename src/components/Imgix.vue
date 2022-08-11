@@ -8,6 +8,7 @@ import { computed, h, ref } from 'vue'
 import {
     useImgix,
     type AttributeConfig,
+    type Client,
     type ImgixParams,
     type SrcsetOptions
 } from '../index'
@@ -17,6 +18,7 @@ const props = withDefaults(defineProps<{
         horizontal: number
         vertical: number
     }
+    attributeConfig?: AttributeConfig
     media?: string
     outputSrcset?: boolean
     sizes?: string
@@ -24,8 +26,7 @@ const props = withDefaults(defineProps<{
     width?: number
     height?: number
     // Imgix
-    attributeConfig?: AttributeConfig
-    imgixUrl?: string
+    imgixUrl?: Client['url']
     imgixParams?: ImgixParams
     isPathEncoding?: boolean
     src: string
@@ -45,6 +46,12 @@ const {
 
 const imgEl = ref<HTMLImageElement>()
 
+const mergedAttributeConfig = computed(() => {
+    return imgEl.value  // for reactivity with custom attributes
+        ? { src: 'src', srcset: 'srcset', sizes: 'sizes' }
+        : margeAttributeConfig(props.attributeConfig)
+})
+
 const widthHeightAttrs = computed(() => {
     if (props.arWithCrop) {
         return {
@@ -60,11 +67,6 @@ const widthHeightAttrs = computed(() => {
 })
 
 const srcSrcsetAttrs = computed(() => {
-    const attributeConfig =
-        imgEl.value  // for reactivity with custom attributes
-            ? { src: 'src', srcset: 'srcset', sizes: 'sizes' }
-            : margeAttributeConfig(props.attributeConfig)
-
     const mergedImgixParams = () => {
         if (props.arWithCrop) {
             const arWithCropParams: ImgixParams = {
@@ -90,16 +92,16 @@ const srcSrcsetAttrs = computed(() => {
     )
 
     if (props.tag === 'source') {
-        return { [attributeConfig.srcset]: srcset }
+        return { [mergedAttributeConfig.value.srcset]: srcset }
     }
 
     if (!props.outputSrcset) {
-        return { [attributeConfig.src]: src }
+        return { [mergedAttributeConfig.value.src]: src }
     }
 
     return {
-        [attributeConfig.src]: src,
-        [attributeConfig.srcset]: srcset
+        [mergedAttributeConfig.value.src]: src,
+        [mergedAttributeConfig.value.srcset]: srcset
     }
 })
 
@@ -110,7 +112,7 @@ const render = () => {
         ...srcSrcsetAttrs.value,
         ...widthHeightAttrs.value,
         media: props.media,
-        sizes: props.sizes
+        [mergedAttributeConfig.value.sizes]: props.sizes
     })
 }
 </script>
