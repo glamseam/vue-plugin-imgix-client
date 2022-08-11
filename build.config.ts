@@ -9,5 +9,6 @@ export default defineBuildConfig({
         esbuild: {
             sourceMap: true
         }
-    }
+    },
+    failOnWarn: false
 })
