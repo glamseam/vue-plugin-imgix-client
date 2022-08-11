@@ -6,7 +6,7 @@
 import { computed, h } from 'vue'
 import { buildUrlObject } from '@d-gs/imgix-client'
 
-import  type{
+import type{
     AttributeConfig,
     Client,
     ImgixParams,
