@@ -23,7 +23,6 @@ export const useImgix = () => {
         defaultImgixParams,
         url: defaultImgixUrl,
         defaultSrcsetOptions
-        // secureUrlToken
     } = initOptions
 
     const margeAttributeConfig = (config: AttributeConfig | undefined): AttributeConfig => {
@@ -56,7 +55,7 @@ export const useImgix = () => {
         isPathEncoding?: boolean
     ) => {
         const { src, srcset } = clientBuildUrlObject(
-            imgixUrl,
+            { url: imgixUrl },
             path,
             margeImgixParams(imgixParams),
             margeSrcsetOptions(srcsetOptions),

@@ -1,17 +1,16 @@
 import type { Plugin } from 'vue'
 
-import type { PluginInstallOptions } from './types'
+import type { Client, PluginInstallOptions } from './types'
 
 export const pluginImgix: Plugin = {
     install: (
         app,
-        url: string,
+        url: Client['url'],
         {
             defaultAttributeConfig = { src: 'src', srcset: 'srcset', sizes: 'sizes' },
             defaultImgClass,
             defaultImgixParams,
-            defaultSrcsetOptions,
-            secureUrlToken
+            defaultSrcsetOptions
         }: PluginInstallOptions = {}
     ) => {
         app.provide('$pluginVueImgix', {
@@ -19,8 +18,7 @@ export const pluginImgix: Plugin = {
             defaultAttributeConfig,
             defaultImgClass,
             defaultImgixParams,
-            defaultSrcsetOptions,
-            secureUrlToken
+            defaultSrcsetOptions
         })
     }
 }
