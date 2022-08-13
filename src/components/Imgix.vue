@@ -56,17 +56,21 @@ const widthHeightAttrs = computed(() => {
     }
 })
 
-const srcSrcsetAttrs = computed(() => {
-    const mergedImgixParams = () => {
-        if (props.arWithCrop) {
-            const arWithCropParams: ImgixParams = {
-                ar: `${props.arWithCrop.horizontal}:${props.arWithCrop.vertical}`,
-                fit: 'crop'
-            }
+const mediaAttr = computed(() => {
+    if (props.media && props.tag === 'source') {
+        return {
+            media: props.media
+        }
+    }
+})
 
+const srcSrcsetAttrs = computed(() => {
+    const mergeImgixParams = (): ImgixParams | undefined => {
+        if (props.arWithCrop) {
             return {
                 ...props.imgixParams,
-                ...arWithCropParams
+                ar: `${props.arWithCrop.horizontal}:${props.arWithCrop.vertical}`,
+                fit: 'crop'
             }
         }
 
@@ -76,7 +80,7 @@ const srcSrcsetAttrs = computed(() => {
     const { src, srcset } = buildUrlObject(
         props.imgixClient,
         props.src,
-        mergedImgixParams(),
+        mergeImgixParams(),
         props.srcsetOptions,
         props.isPathEncoding
     )
@@ -99,7 +103,7 @@ const render = () => {
     return h(props.tag, {
         ...srcSrcsetAttrs.value,
         ...widthHeightAttrs.value,
-        media: props.media,
+        ...mediaAttr.value,
         [props.attributeConfig.sizes]: props.sizes
     })
 }
