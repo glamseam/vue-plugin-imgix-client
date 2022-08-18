@@ -7,18 +7,18 @@ export const pluginImgix: Plugin = {
         app,
         url: Client['url'],
         {
-            defaultAttributeConfig = { src: 'src', srcset: 'srcset', sizes: 'sizes' },
-            defaultImgClass,
-            defaultImgixParams,
-            defaultSrcsetOptions
+            attributeConfig = { src: 'src', srcset: 'srcset', sizes: 'sizes' },
+            classes,
+            params,
+            srcsetOptions
         }: PluginInstallOptions = {}
     ) => {
         app.provide('$pluginVueImgix', {
             url,
-            defaultAttributeConfig,
-            defaultImgClass,
-            defaultImgixParams,
-            defaultSrcsetOptions
+            attributeConfig,
+            classes,
+            params,
+            srcsetOptions
         })
     }
 }

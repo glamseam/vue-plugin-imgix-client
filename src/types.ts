@@ -15,10 +15,10 @@ export interface AttributeConfig {
 }
 
 export interface PluginOptions {
-    defaultAttributeConfig: AttributeConfig
-    defaultImgClass?: string
-    defaultImgixParams?: ImgixParams
-    defaultSrcsetOptions?: SrcsetOptions
+    attributeConfig: AttributeConfig
+    classes?: string
+    params?: ImgixParams
+    srcsetOptions?: SrcsetOptions
 }
 
 export type PluginInstallOptions = Partial<PluginOptions>

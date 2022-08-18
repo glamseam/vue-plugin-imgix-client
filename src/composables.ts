@@ -17,32 +17,23 @@ export const useImgix = () => {
         throw new Error(`$pluginVueImgix is not provided`)
     }
 
-    const {
-        defaultAttributeConfig,
-        defaultImgClass,
-        defaultImgixParams,
-        url: defaultImgixUrl,
-        defaultSrcsetOptions
-    } = initOptions
-
     const margeAttributeConfig = (config: AttributeConfig | undefined): AttributeConfig => {
         return {
-            ...defaultAttributeConfig,
+            ...initOptions.attributeConfig,
             ...config
         }
     }
 
     const margeImgixParams = (params: ImgixParams | undefined): ImgixParams | undefined => {
         return {
-            auto: ['format'],
-            ...defaultImgixParams,
+            ...initOptions.params,
             ...params
         }
     }
 
     const margeSrcsetOptions = (srcsetOptions: SrcsetOptions | undefined): SrcsetOptions => {
         return {
-            ...defaultSrcsetOptions,
+            ...initOptions.srcsetOptions,
             ...srcsetOptions
         }
     }
@@ -69,11 +60,11 @@ export const useImgix = () => {
     }
 
     return {
-        defaultAttributeConfig,
-        defaultImgClass,
-        defaultImgixParams,
-        defaultImgixUrl,
-        defaultSrcsetOptions,
+        defaultAttributeConfig: initOptions.attributeConfig,
+        defaultClasses: initOptions.classes,
+        defaultParams: initOptions.params,
+        defaultUrl: initOptions.url,
+        defaultSrcsetOptions: initOptions.srcsetOptions,
         buildUrlObject,
         margeAttributeConfig,
         margeImgixParams,
