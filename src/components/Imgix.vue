@@ -26,8 +26,8 @@ const props = withDefaults(defineProps<{
     width?: number
     height?: number
     // Imgix
-    imgixUrl?: Client['url']
-    imgixParams?: ImgixParams
+    url?: Client['url']
+    params?: ImgixParams
     isPathEncoding?: boolean
     src: string
     srcsetOptions?: SrcsetOptions
@@ -38,8 +38,8 @@ const props = withDefaults(defineProps<{
 })
 
 const {
-    defaultImgClass,
-    defaultImgixUrl,
+    defaultClasses,
+    defaultUrl,
     buildUrlObject,
     margeAttributeConfig
 } = useImgix()
@@ -78,17 +78,17 @@ const srcSrcsetAttrs = computed(() => {
     const mergeImgixParams = (): ImgixParams | undefined => {
         if (props.arWithCrop) {
             return {
-                ...props.imgixParams,
+                ...props.params,
                 ar: `${props.arWithCrop.horizontal}:${props.arWithCrop.vertical}`,
                 fit: 'crop'
             }
         }
 
-        return props.imgixParams
+        return props.params
     }
 
     const { src, srcset } = buildUrlObject(
-        props.imgixUrl ?? defaultImgixUrl,
+        props.url ?? defaultUrl,
         props.src,
         mergeImgixParams(),
         props.srcsetOptions,
@@ -112,7 +112,7 @@ const srcSrcsetAttrs = computed(() => {
 const render = () => {
     return h(props.tag, {
         ref: imgEl,
-        class: defaultImgClass,
+        class: defaultClasses,
         ...srcSrcsetAttrs.value,
         ...widthHeightAttrs.value,
         ...mediaAttr.value,
