@@ -16,7 +16,7 @@ export interface AttributeConfig {
 
 export interface PluginOptions {
     attributeConfig: AttributeConfig
-    classes?: string
+    classes?: string[]
     params?: ImgixParams
     srcsetOptions?: SrcsetOptions
 }
