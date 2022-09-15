@@ -14,6 +14,7 @@ import {
 } from '../index'
 
 const props = withDefaults(defineProps<{
+    alt?: string
     arWithCrop?: {
         horizontal: number
         vertical: number
@@ -21,6 +22,7 @@ const props = withDefaults(defineProps<{
     attributeConfig?: AttributeConfig
     media?: string
     outputSrcset?: boolean
+    role?: string
     sizes?: string
     tag?: 'img' | 'source'
     width?: number
@@ -112,7 +114,9 @@ const srcSrcsetAttrs = computed(() => {
 const render = () => {
     return h(props.tag, {
         ref: imgEl,
+        alt: props.alt,
         class: defaultClasses,
+        role: props.role,
         ...srcSrcsetAttrs.value,
         ...widthHeightAttrs.value,
         ...mediaAttr.value,
